@@ -1,0 +1,34 @@
+body {
+  width: 90%;
+  margin: auto;
+}
+.contenido {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.item {
+  width: 300px;
+  height: auto;
+  display: inline-flex;
+}
+.item-foto-svg {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  background: grey;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item-foto-svg > img {
+  height: 40%;
+  opacity: 0.8;
+}
+h2 {
+  text-align: center;
+}

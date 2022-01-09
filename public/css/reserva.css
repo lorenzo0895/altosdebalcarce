@@ -1,0 +1,15 @@
+.card {
+  background-color: rgb(33,37,41);
+  margin-bottom: 15px;
+}
+.titulo-item {
+  color: rgb(216, 216, 216);
+}
+.items-separados {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+a {
+  text-decoration: none;
+}
