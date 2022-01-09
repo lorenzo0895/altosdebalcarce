@@ -4,6 +4,7 @@ const { isAdmin } = require('../services/roles');
 const User = require('../models/User');
 const Horarios = require('../models/Horarios');
 const bcrypt = require('bcryptjs');
+const turnos = require('../services/turnos');
 
 router.get('/', isAdmin, (req, res) => {
   res.render('admin-home', { admin: req.session.admin });
@@ -31,6 +32,12 @@ router.get('/schedule', isAdmin, async (req, res) => {
 router.get('/user/:dni', isAdmin, async (req, res) => {
   const user = await User.findOne({ dni: req.params.dni });
   res.render('admin-usuario-modificar', { admin: req.session.admin, user: user });
+});
+
+router.get('/turnos', isAdmin, async (req, res) => {
+  turnos.getTurnosFuturos('musculacion');
+
+  res.render('admin-turnos-listar', { admin: req.session.admin });
 });
 
 router.post('/new-user', isAdmin, async (req, res) => {
@@ -103,6 +110,9 @@ router.post('/schedule/musculacion', isAdmin, async (req, res) => {
   //Falta borrar los turnos viejos
 
   try {
+
+    await Horarios.deleteMany({seccion : 'musculacion'});
+
     agregarHorario(desdelunes, hastalunes, cupolunes, 0, 'musculacion');
     agregarHorario(desdemartes, hastamartes, cupomartes, 1, 'musculacion');
     agregarHorario(desdemiercoles, hastamiercoles, cupomiercoles, 2, 'musculacion');
@@ -118,39 +128,67 @@ router.post('/schedule/musculacion', isAdmin, async (req, res) => {
   res.redirect('/admin/schedule');
 });
 
-function stringToDate(string) {
-  let horas = Number(string.substring(0, 2));
-  let minutos = Number(string.substring(3, 5));
-  let minutosTotales = minutos + horas * 60;
-  let date = new Date(0);
-  date.setMinutes(date.getMinutes() + minutosTotales);
-  return date;
-}
+router.post('/schedule/pilates', isAdmin, async (req, res) => {
+  const {
+    desdelunes, hastalunes, cupolunes,
+    desdemartes, hastamartes, cupomartes,
+    desdemiercoles, hastamiercoles, cupomiercoles,
+    desdejueves, hastajueves, cupojueves,
+    desdeviernes, hastaviernes, cupoviernes,
+    desdesabado, hastasabado, cuposabado,
+    desdedomingo, hastadomingo, cupodomingo
+  } = req.body;
 
-async function agregarHorario(desde, hasta, cupo, dia, seccion) {
+  //Falta borrar los turnos viejos
+
+  try {
+
+    await Horarios.deleteMany({seccion : 'pilates'});
+
+    agregarHorario(desdelunes, hastalunes, cupolunes, 0, 'pilates');
+    agregarHorario(desdemartes, hastamartes, cupomartes, 1, 'pilates');
+    agregarHorario(desdemiercoles, hastamiercoles, cupomiercoles, 2, 'pilates');
+    agregarHorario(desdejueves, hastajueves, cupojueves, 3, 'pilates');
+    agregarHorario(desdeviernes, hastaviernes, cupoviernes, 4, 'pilates');
+    agregarHorario(desdesabado, hastasabado, cuposabado, 5, 'pilates');
+    agregarHorario(desdedomingo, hastadomingo, cupodomingo, 6, 'pilates');
+
+  } catch (error) {
+    return res.redirect('/admin/schedule?alerta=Hubo un error al editar los horarios');
+  }
+
+  res.redirect('/admin/schedule');
+});
+
+function stringToHour(string) {
+  return Number(string.substring(0,2));
+}
+function stringToMinutes(string) {
+  return Number(string.substring(3,5));
+}
+async function agregarHorario (desde, hasta, cupo, dia, seccion) {
   if (Array.isArray(desde)) {
     desde.forEach(async (el, i) => {
-      let desde2 = stringToDate(desde[i]);
-      let hasta2 = stringToDate(hasta[i]);
-
       let horario = new Horarios({
         seccion: seccion,
         dia: dia,
-        desde: desde2,
-        hasta: hasta2,
+        desdeHoras: stringToHour(desde[i]),
+        desdeMinutos: stringToMinutes(desde[i]),
+        hastaHoras: stringToHour(hasta[i]),
+        hastaMinutos: stringToMinutes(hasta[i]),
         cupo: cupo[i]
       });
       await horario.save();
     })
   } else if (desde != undefined) {
-    let desde2 = stringToDate(desde);
-    let hasta2 = stringToDate(hasta);
 
     let horario = new Horarios({
       seccion: seccion,
       dia: dia,
-      desde: desde2,
-      hasta: hasta2,
+      desdeHoras: stringToHour(desde),
+      desdeMinutos: stringToMinutes(desde),
+      hastaHoras: stringToHour(hasta),
+      hastaMinutos: stringToMinutes(hasta),
       cupo: cupo
     });
     await horario.save();

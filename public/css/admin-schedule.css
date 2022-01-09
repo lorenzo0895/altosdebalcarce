@@ -16,3 +16,6 @@ td {
 .agregar, .manito {
   cursor: pointer;
 }
+.btn {
+  margin-bottom: 25px;
+}

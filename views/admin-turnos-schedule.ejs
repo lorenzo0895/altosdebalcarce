@@ -47,74 +47,479 @@
   </header>
 
   <section class="contenido">
-
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-musculacion"
-          type="button" role="tab" aria-controls="nav-home" aria-selected="true">Musculación</button>
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-pilates" type="button"
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+          role="tab" aria-controls="nav-home" aria-selected="true">Musculación</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
           role="tab" aria-controls="nav-profile" aria-selected="false">Pilates</button>
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-musculacion" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <form action="/admin/schedule/musculacion" method="POST">
+
           <h3>Lunes <img src="/images/plus-circle.svg" onclick="agregar('lunes')" class="agregar" alt="agregar"></h3>
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Desde</th>
                 <th scope="col">Hasta</th>
                 <th scope="col">Cupo</th>
               </tr>
             </thead>
             <tbody id="lunes">
-              <% horMusc.forEach(element => { %>
-               <% if (element.dia === 0) { 
-                let random = Math.random();
-                %>
-                
-                <tr id="<%= random %>">
-                  <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar"></td>
-                  <td><input type="time" class="form-control" name="desdelunes" value=""></td>
-                  <td><input type="time" class="form-control" name="hastalunes"></td>
-                  <td><input type="number" class="form-control" name="cupolunes"></td>
-                </tr>
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===0) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
 
-               <% } %>
-              <% }) %>
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
             </tbody>
           </table>
+
           <h3>Martes <img src="/images/plus-circle.svg" onclick="agregar('martes')" class="agregar" alt="agregar"></h3>
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Desde</th>
                 <th scope="col">Hasta</th>
                 <th scope="col">Cupo</th>
               </tr>
             </thead>
             <tbody id="martes">
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===1) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
             </tbody>
           </table>
-          <h3>Miércoles</h3>
-          <h3>Jueves</h3>
-          <h3>Viernes</h3>
-          <h3>Sábado</h3>
-          <h3>Domingo</h3>
+
+          <h3>Miércoles <img src="/images/plus-circle.svg" onclick="agregar('miercoles')" class="agregar" alt="agregar">
+          </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="miercoles">
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===2) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Jueves <img src="/images/plus-circle.svg" onclick="agregar('jueves')" class="agregar" alt="agregar"></h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="jueves">
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===3) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Viernes <img src="/images/plus-circle.svg" onclick="agregar('viernes')" class="agregar" alt="agregar">
+          </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="viernes">
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===4) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Sábado <img src="/images/plus-circle.svg" onclick="agregar('sabado')" class="agregar" alt="agregar"></h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="sabado">
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===5) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Domingo <img src="/images/plus-circle.svg" onclick="agregar('domingo')" class="agregar" alt="agregar">
+          </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="domingo">
+              <% horMusc.forEach(element=> { %>
+                <% if (element.dia===6) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
           <button type="submit" class="btn btn-primary">Confirmar</button>
         </form>
       </div>
-      <div class="tab-pane fade" id="nav-pilates" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <h3>Lunes</h3>
-        <h3>Martes</h3>
-        <h3>Miércoles</h3>
-        <h3>Jueves</h3>
-        <h3>Viernes</h3>
-        <h3>Sábado</h3>
-        <h3>Domingo</h3>
+
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <form action="/admin/schedule/pilates" method="POST">
+
+          <h3>Lunes <img src="/images/plus-circle.svg" onclick="agregarPilates('lunes')" class="agregar" alt="agregar"></h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="lunesPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===0) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Martes <img src="/images/plus-circle.svg" onclick="agregarPilates('martes')" class="agregar" alt="agregar"></h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="martesPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===1) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Miércoles <img src="/images/plus-circle.svg" onclick="agregarPilates('miercoles')" class="agregar" alt="agregar">
+          </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="miercolesPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===2) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Jueves <img src="/images/plus-circle.svg" onclick="agregarPilates('jueves')" class="agregar" alt="agregar"></h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="juevesPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===3) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Viernes <img src="/images/plus-circle.svg" onclick="agregarPilates('viernes')" class="agregar" alt="agregar">
+          </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="viernesPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===4) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Sábado <img src="/images/plus-circle.svg" onclick="agregarPilates('sabado')" class="agregar" alt="agregar"></h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="sabadoPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===5) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+
+          <h3>Domingo <img src="/images/plus-circle.svg" onclick="agregarPilates('domingo')" class="agregar" alt="agregar">
+          </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th scope="col">Cupo</th>
+              </tr>
+            </thead>
+            <tbody id="domingoPilates">
+              <% horPil.forEach(element=> { %>
+                <% if (element.dia===6) { let random=Math.random(); let desdeHoras=element.desdeHoras < 10 ? ('0' +
+                  element.desdeHoras) : element.desdeHoras; let desdeMinutos=element.desdeMinutos < 10 ? ('0' +
+                  element.desdeMinutos) : element.desdeMinutos; let desde=desdeHoras + ':' + desdeMinutos; let
+                  hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras; let
+                  hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos; let
+                  hasta=hastaHoras + ':' + hastaMinutos; %>
+
+                  <tr id="<%= random %>">
+                    <td><img class="manito" src="/images/dash-circle.svg" onclick="sacar(<%= random %>)" alt="quitar">
+                    </td>
+                    <td><input type="time" class="form-control" name="desdelunes" value="<%= desde %>"></td>
+                    <td><input type="time" class="form-control" name="hastalunes" value="<%= hasta %>"></td>
+                    <td><input type="number" class="form-control" name="cupolunes" value="<%= element.cupo %>"></td>
+                  </tr>
+
+                  <% } %>
+                    <% }) %>
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-primary">Confirmar</button>
+        </form>
       </div>
     </div>
 

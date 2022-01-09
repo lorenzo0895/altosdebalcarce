@@ -10,13 +10,29 @@ const schema = new Schema({
     type: Number,
     required: true
   },
-  desde: {
-    type: Date,
-    required: true
+  desdeHoras: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 23
   },
-  hasta: {
-    type: Date,
-    required: true
+  desdeMinutos: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 59
+  },
+  hastaHoras: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 23
+  },
+  hastaMinutos: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 59
   },
   cupo: {
     type: Number,
