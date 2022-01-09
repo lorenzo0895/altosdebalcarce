@@ -1,0 +1,16 @@
+.desplegable {
+  filter: invert(1);
+  cursor: pointer;
+  height: 20px;
+}
+.oculta {
+  display: none;
+}
+.card-2 {
+  border: 1px solid rgb(80, 80, 80);
+  margin-bottom: 0;
+}
+.card-header-2 {
+  background: rgb(80, 80, 80);
+}
+

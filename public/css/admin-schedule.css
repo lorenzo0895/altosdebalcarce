@@ -1,0 +1,21 @@
+h3 {
+  font-size: 17px;
+  margin-top: 20px;
+}
+.form-control {
+  width: 110px;
+  margin-right: 10px;
+}
+.table {
+  width: 450px;
+}
+td {
+  vertical-align: middle;
+}
+
+.agregar, .manito {
+  cursor: pointer;
+}
+.btn {
+  margin-bottom: 25px;
+}

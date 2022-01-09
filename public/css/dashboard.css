@@ -1,0 +1,29 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: rgb(52, 52, 52);
+}
+.item:hover {
+  color: rgb(33, 33, 33);
+}
+.div-foto-item {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.musculacion {
+  background: url(../images/musculacion.jpeg) no-repeat center center / cover;
+}
+.pilates {
+  background: url(../images/pilates.jpeg) no-repeat center center / cover;
+}
+p {
+  text-align: center;
+  width: 70%;
+}
