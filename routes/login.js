@@ -4,6 +4,16 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 router.get('/login', (req, res) => {
+  // let encode = await bcrypt.hash('38978154',12);
+  // let user = new User({
+  //   dni: 38978154,
+  //   admin: true,
+  //   active: true,
+  //   name: 'Lorenzo',
+  //   surname: 'Spallione',
+  //   password: encode
+  // });
+  // await user.save();
   const dni = req.body.dni;
   if (dni != null) {
     res.redirect('/');
@@ -13,6 +23,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { dni, password } = req.body;
+
   try {
     const user = await User.findOne({ dni: dni });
     if (!user) {
