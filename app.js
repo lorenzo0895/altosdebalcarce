@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 //----- Base de Datos -----
-const uriDB = 'mongodb://localhost:27017/altosDeBalcarce';
+const uriDB = 'mongodb+srv://root:root@cluster0.ayfz2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 mongoose.connect(uriDB)
   .then(console.log('Conectado a BD'))
   .catch('Error al conectarse a la BD');
