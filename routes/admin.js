@@ -20,8 +20,8 @@ router.get('/user-list', isAdmin, async (req, res) => {
 });
 
 router.get('/schedule', isAdmin, async (req, res) => {
-  let horMusc = await Horarios.find({seccion : 'musculacion'});
-  let horPil = await Horarios.find({seccion : 'pilates'});
+  let horMusc = await Horarios.find({seccion : 'musculacion'}).sort('dia').sort('desdeHoras').sort('desdeMinutos');
+  let horPil = await Horarios.find({seccion : 'pilates'}).sort('dia').sort('desdeHoras').sort('desdeMinutos');
   res.render('admin-turnos-schedule', {
     admin: req.session.admin,
     horMusc: horMusc,
@@ -35,9 +35,8 @@ router.get('/user/:dni', isAdmin, async (req, res) => {
 });
 
 router.get('/turnos', isAdmin, async (req, res) => {
-  turnos.getTurnosFuturos('musculacion');
-
-  res.render('admin-turnos-listar', { admin: req.session.admin });
+  let horarios = await turnos.getTurnosFuturos('musculacion');
+  res.render('admin-turnos-listar', { admin: req.session.admin, horarios: horarios });
 });
 
 router.post('/new-user', isAdmin, async (req, res) => {

@@ -50,64 +50,38 @@
 
   <section class="contenido">
 
-    <div class="card">
-      <div class=" card-header items-separados">
-        <span class="titulo-item">Viernes, 07 de enero de 2022</span>
-        <a onclick="desplegable('lista-1')"><img class="desplegable" src="./images/list.svg" alt=""></a>
+    <% for( let i = 0; i < Object.keys(horarios).length; i++ ) { %>
+      <div class="card">
+        <div class=" card-header items-separados">
+          <span class="titulo-item">Viernes, 8 de enero</span>
+          <a onclick="desplegable('lista-1')"><img class="desplegable" src="/images/list.svg" alt=""></a>
+        </div>
+        <ul class="list-group list-group-flush oculta" id="lista-1">
+          <li class="list-group-item">
+            <div class="card card-2">
+              <div class=" card-header card-header-2 items-separados">
+                <span class="titulo-item">07:00 a 08:20</span>
+                <a onclick="desplegable('lista-1-1')"><img class="desplegable" src="/images/list.svg" alt=""></a>
+              </div>
+              <ul class="list-group list-group-flush oculta" id="lista-1-1">
+                <li class="list-group-item items-separados">
+                  <span>38978154 - Spallione, Lorenzo</span>
+                  <button type="button" class="btn btn-danger" href="/">Cancelar</button>
+                </li>
+              </ul>
+            </div>
+          </li>
+          
+        </ul>
+  
       </div>
-      <ul class="list-group list-group-flush oculta" id="lista-1">
-        <li class="list-group-item">
-          <div class="card card-2">
-            <div class=" card-header card-header-2 items-separados">
-              <span class="titulo-item">07:00 a 08:20</span>
-              <a onclick="desplegable('lista-1-1')"><img class="desplegable" src="./images/list.svg" alt=""></a>
-            </div>
-            <ul class="list-group list-group-flush oculta" id="lista-1-1">
-              <li class="list-group-item items-separados">
-                <span>38978154 - Spallione, Lorenzo</span>
-                <button type="button" class="btn btn-danger" href="/">Cancelar</button>
-              </li>
-              <li class="list-group-item items-separados">
-                <span>38978154 - Spallione, Lorenzo</span>
-                <button type="button" class="btn btn-danger" href="/">Cancelar</button>
-              </li>
-              <li class="list-group-item items-separados">
-                <span>38978154 - Spallione, Lorenzo</span>
-                <button type="button" class="btn btn-danger" href="/">Cancelar</button>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="card card-2">
-            <div class=" card-header card-header-2 items-separados">
-              <span class="titulo-item">07:00 a 08:20</span>
-              <a onclick="desplegable('lista-1-2')"><img class="desplegable" src="./images/list.svg" alt=""></a>
-            </div>
-            <ul class="list-group list-group-flush oculta" id="lista-1-2">
-              <li class="list-group-item items-separados">
-                <span>38978154 - Spallione, Lorenzo</span>
-                <button type="button" class="btn btn-danger" href="/">Cancelar</button>
-              </li>
-              <li class="list-group-item items-separados">
-                <span>38978154 - Spallione, Lorenzo</span>
-                <button type="button" class="btn btn-danger" href="/">Cancelar</button>
-              </li>
-              <li class="list-group-item items-separados">
-                <span>38978154 - Spallione, Lorenzo</span>
-                <button type="button" class="btn btn-danger" href="/">Cancelar</button>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <% } %>
 
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-  <script src="./js/ocultar.js"></script>
+  <script src="/js/ocultar.js"></script>
 </body>
 
 </html>

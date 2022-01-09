@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/general.css">
-  <link rel="stylesheet" href="./css/reserva.css">
-  <link rel="icon" href="./images/logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/general.css">
+  <link rel="stylesheet" href="/css/reserva.css">
+  <link rel="icon" href="/images/logo.ico" type="image/x-icon" />
   <title>ADB | Reserva</title>
 </head>
 
@@ -18,7 +18,7 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a id="titulo-nav" class="navbar-brand" href="/"><img src="./images/logo.png" alt="logo" id="logo">Altos de
+        <a id="titulo-nav" class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo" id="logo">Altos de
           Balcarce</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,13 @@
               <li class="nav-item">
                 <a class="nav-link" href="/admin">Administrador</a>
               </li>
-            <% } %>
-            <li class="nav-item">
-              <a class="nav-link" href="/perfil">Perfil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Cerrar sesión</a>
-            </li>
+              <% } %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/perfil">Perfil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Cerrar sesión</a>
+                </li>
           </ul>
         </div>
       </div>
@@ -47,52 +47,50 @@
   </header>
 
   <section class="contenido">
-    <div class="card"">
-      <div class=" card-header">
-      <span class="titulo-item">Viernes, 07 de enero de 2022</span>
-    </div>
-    <ul class="list-group list-group-flush">
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-    </ul>
-    </div>
-    <div class="card"">
-      <div class=" card-header">
-      <span class="titulo-item">Viernes, 07 de enero de 2022</span>
-    </div>
-    <ul class="list-group list-group-flush">
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-      <form action="/reserva" method="POST" onclick="submit()">
-        <li class="list-group-item items-separados"><span>07:00 a 08:20</span><span>12 disponibles</span></li>
-        <input type="text" name="turno" value="valor a enviar al back" hidden>
-      </form>
-    </ul>
-    </div>
+
+    <% for( let i=0; i < Object.keys(horarios).length; i++ ) { 
+      let hoy = new Date();
+      hoy.setDate(hoy.getDate() + i);
+      hoy.setHours(0,0,0,0);
+      hoyString = hoy.toLocaleString('es-AR', { dateStyle: 'full' });
+      hoyString = hoyString.substring(0,1).toUpperCase() + hoyString.slice(1);
+      %>
+      <div class="card"">
+        <div class=" card-header">
+        <span class="titulo-item">
+          <%= hoyString %>
+        </span>
+      </div>
+      <ul class="list-group list-group-flush">
+
+        <% horarios[i].forEach(element => {
+          let random=Math.random();
+          let desdeHoras=element.desdeHoras < 10 ? ('0' + element.desdeHoras) : element.desdeHoras; let
+            desdeMinutos=element.desdeMinutos < 10 ? ('0' + element.desdeMinutos) : element.desdeMinutos; let
+            desde=desdeHoras + ':' + desdeMinutos; let hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) :
+            element.hastaHoras; let hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) :
+            element.hastaMinutos; let hasta=hastaHoras + ':' + hastaMinutos; 
+            let turno = new Date();
+            %>
+            <form action="/reserva" method="POST" onclick="submit()">
+              <li class="list-group-item items-separados"><span><%= desde %> a <%= hasta %></span><span>12 disponibles</span></li>
+              <input type="text" name="dia" value="<%= 
+              hoy.toLocaleString('es-AR', {year: 'numeric'}) + '-' +
+              hoy.toLocaleString('es-AR', {month: '2-digit'}) + '-' +
+              hoy.toLocaleString('es-AR', {day: '2-digit'})
+              %>" hidden>
+              <input type="text" name="turno" value="<%= element._id %>" hidden>
+              <input type="text" name="user" value="<%= user._id %>" hidden>
+              <input type="text" name="seccion" value="<%= seccion %>" hidden>
+            </form>
+            <% }) %>
+
+      </ul>
+      </div>
+
+      <% } %>
+
+
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
