@@ -87,7 +87,7 @@ router.post('/user/:dni/editar-password', isAdmin, async (req, res) => {
   const { password1, password2, dni } = req.body;
 
   if (password1 != password2) {
-    res.redirect('/admin/user/' + dni + '?msj=Las contraseñas no coinciden');
+    res.redirect('/admin/user/' + dni + '?alert=Las contraseñas no coinciden');
   }
   const encode = await bcrypt.hash(password1, 12);
   await User.findOneAndUpdate({ dni: dni }, { $set: { password: encode } });
@@ -121,7 +121,7 @@ router.post('/schedule/musculacion', isAdmin, async (req, res) => {
     agregarHorario(desdedomingo, hastadomingo, cupodomingo, 6, 'musculacion');
 
   } catch (error) {
-    return res.redirect('/admin/schedule?alerta=Hubo un error al editar los horarios');
+    return res.redirect('/admin/schedule?alert=Hubo un error al editar los horarios');
   }
 
   res.redirect('/admin/schedule');

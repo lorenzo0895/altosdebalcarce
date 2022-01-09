@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/general.css">
   <link rel="stylesheet" href="/css/admin-usuario-modificar.css">
   <link rel="icon" href="/images/logo.ico" type="image/x-icon" />
-  <title>Login</title>
+  <title>ADB | Edición de Usuario</title>
 </head>
 
 <body>
@@ -47,6 +47,9 @@
   </header>
   <section class="contenido pagina-login">
     <h1>Modificación de Usuario</h1>
+
+    <div class="alert alert-warning" role="alert" id="alert" style="display: none;"></div>
+    <div class="alert alert-success" role="alert" id="msj" style="display: none;"></div>
 
     <h2>Datos generales</h2>
     <form method="POST" action="<%= user.dni %>/editar-datos">
@@ -105,6 +108,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
+    <script src="/js/msjYAlerta.js"></script>
 </body>
 
 </html>
