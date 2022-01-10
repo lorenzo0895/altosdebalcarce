@@ -15,7 +15,6 @@ router.get('/', isActive, async (req, res) => {
 router.post('/', isActive, async (req, res) => {
   const {turno, dia, user, seccion} = req.body;
   let date = new Date(dia);
-  console.log(date);
   try {
     let reserva = new Reservas({
       turno: turno,
@@ -23,13 +22,11 @@ router.post('/', isActive, async (req, res) => {
       user: user,
       seccion: seccion
     });
-    console.log(reserva);
     await reserva.save();
-    res.redirect('/mis-turnos?msj=Turno reservado correctamente.');
+    res.redirect('/reserva?sec='+seccion+'&msj=Turno reservado correctamente. Si no vas a asistir, podés cancelarlo en la sección "Mis Turnos".');
   } catch (error) {
-    res.redirect('/reserva?sec='+seccion+'alerta=Occurrió un error al solicitar turno');
+    res.redirect('/reserva?sec='+seccion+'&alert=Occurrió un error al solicitar turno');
   }
-  
 });
 
 module.exports = router;

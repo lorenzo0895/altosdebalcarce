@@ -49,10 +49,20 @@
 
   <section class="contenido">
     <div class="card"">
-      <div class=" card-header">
-      <span class="titulo-item">Turnos</span>
+      <div class=" card-header items-separados">
+      <span class="titulo-item">Turnos Reservados</span>
+      <a href="/" type="button" class="btn btn-outline-secondary">Nueva Reserva</a>
     </div>
     <ul class="list-group list-group-flush">
+
+      <% if (reservas.length === 0) { %>
+        <li class="list-group-item items-separados">
+          <span>
+            Usted aún no tiene turnos reservados.
+          </span>
+        </li>
+      <% } %>
+
       <% reservas.forEach(element=> {
         let turno = turnos.filter(turno => turno.id == element.turno);
         turno = turno[0];
@@ -74,7 +84,7 @@
                     %>
             </span>
             <form action="/mis-turnos/borrar-turno" method="POST">
-              <input type="text" name="id" value="<%= turno.id %>" hidden>
+              <input type="text" name="id" value="<%= element._id %>" hidden>
               <button type="submit" class="btn btn-danger">Cancelar</button>
             </form>
           </li>

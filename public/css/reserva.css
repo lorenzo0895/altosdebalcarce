@@ -1,6 +1,27 @@
+.blur {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1031;
+  background: rgba(123, 123, 123, 0.44);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.confirmar {
+  width: 300px;
+  height: 400px;
+}
 .card {
-  background-color: rgb(33,37,41);
+  background-color: rgb(33, 37, 41);
   margin-bottom: 15px;
+}
+.card2 {
+  background: #f8f9fa;
 }
 .titulo-item {
   color: rgb(216, 216, 216);
