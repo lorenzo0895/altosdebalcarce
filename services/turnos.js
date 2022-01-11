@@ -1,4 +1,5 @@
 const Horarios = require('../models/Horarios');
+const Reservas = require('../models/Reservas');
 
 function diaANumero(diaString) {
   switch (diaString) {
@@ -42,14 +43,29 @@ module.exports.getTurnosFuturos = async function (seccion, diferimiento) {
     objetoHorarios[i] = [];
   }
 
+  let totalReservas = await Reservas.find({ 'seccion': seccion });
+  
   for (let i = 0; i <= diasLimite; i++) {
     let now = new Date();
     now.setHours(now.getHours() + diferimiento);
     now.setDate(now.getDate() + i);
-    let dia = diaANumero(now.toLocaleString('es-AR', { weekday: 'long' }));
-    let horas = Number(now.toLocaleString('es-AR', { hour: 'numeric' }));
-    let minutos = Number(now.toLocaleString('es-AR', { minute: 'numeric' }));
-    objeto[dia].forEach(el => {
+    let dia = now.getDay();
+    let horas = now.getHours();
+    let minutos = now.getMinutes();
+
+    objeto[dia].forEach(async element => {
+      cantidadReservas = totalReservas.filter(elem => {
+
+        let filtroHoy = (elem.dia.getFullYear() === now.getFullYear() &&
+        elem.dia.getMonth() === now.getMonth() &&
+        elem.dia.getDate() === now.getDate());
+        let filtroTurno = (elem.turno.toString() === element._id.toString());
+        return filtroTurno && filtroHoy;
+      }).length;
+
+      let el = Object.assign({}, element._doc);
+      el.usados = cantidadReservas;
+
       if (i === 0) {
         if (el.hastaHoras > horas) {
           objetoHorarios[i].push(el);
@@ -65,9 +81,10 @@ module.exports.getTurnosFuturos = async function (seccion, diferimiento) {
       } else {
         objetoHorarios[i].push(el);
       }
-
     });
   }
+
+  // console.log(objetoHorarios);
   return objetoHorarios;
 
 }

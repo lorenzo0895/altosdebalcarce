@@ -11,10 +11,12 @@ const schema = new Schema({
     required: true
   },
   turno: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    ref: 'Horarios'
   },
   user: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 

@@ -64,6 +64,8 @@
   <section class="contenido">
     <div class="alert alert-warning" role="alert" id="alert" style="display: none;"></div>
     <div class="alert alert-success" role="alert" id="msj" style="display: none;"></div>
+
+
     <% for( let i=0; i < Object.keys(horarios).length; i++ ) {
       let hoy = new Date();
       hoy.setHours(hoy.getHours() + diferimiento);
@@ -95,9 +97,10 @@
         let turno = new Date()
       %>
         <form action="/reserva" method="POST" id="<%= random %>" onclick="abrir(<%= random %>)">
-          <li class="list-group-item items-separados"><span>
-              <%= desde %> a <%= hasta %>
-            </span><span>12 disponibles</span></li>
+          <li class="list-group-item items-separados">
+            <span><%= desde %> a <%= hasta %></span>
+            <span><%= element.cupo - element.usados %> disponibles</span>
+          </li>
           <input type="text" name="dia" hidden value="<%= 
               hoy.toLocaleString('es-AR', {year: 'numeric'}) + '-' +
               hoy.toLocaleString('es-AR', {month: '2-digit'}) + '-' +
