@@ -78,7 +78,7 @@
       </div>
       <ul class="list-group list-group-flush">
 
-        <% if (horarios[0].length===0) {%>
+        <% if (i === 0 && horarios[i].length === 0) {%>
         <li class="list-group-item items-separados">
           Ya no hay más turnos para reservar el día de hoy.
         </li>
@@ -108,7 +108,8 @@
         </form>
         <% }) %>
 
-        <% if (horarios[Object.keys(horarios).length - 1].length === 0) {%>
+        <% if (i === (Object.keys(horarios).length - 1) &&
+         horarios[Object.keys(horarios).length - 1].length === 0) {%>
         <li class="list-group-item items-separados">
           Aún no hay turnos para reservar.
         </li>
