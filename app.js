@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000;
 const session = require('express-session');
 const mongoose = require('mongoose');
 const connectMongoDB = require('connect-mongodb-session')(session);
+const turnos = require('./services/turnos');
 
 //----- Vistas -----
 app.set('view engine', 'ejs');
@@ -37,6 +38,9 @@ app.use('/reserva', require(__dirname + '/routes/reserva'));
 app.use('/mis-turnos', require(__dirname + '/routes/mis-turnos'));
 app.use('/admin', require(__dirname + '/routes/admin'));
 app.use('/perfil', require(__dirname + '/routes/perfil'));
+
+let horarios = await turnos.getTurnosFuturos(seccion);
+console.log(horarios);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
