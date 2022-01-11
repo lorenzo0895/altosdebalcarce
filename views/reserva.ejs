@@ -64,9 +64,12 @@
   <section class="contenido">
     <div class="alert alert-warning" role="alert" id="alert" style="display: none;"></div>
     <div class="alert alert-success" role="alert" id="msj" style="display: none;"></div>
-    <% for( let i=0; i < Object.keys(horarios).length; i++ ) { let hoy=new Date(); hoy.setDate(hoy.getDate() + i);
-      hoyString=hoy.toLocaleString('es-AR', { dateStyle: 'full' }); hoyString=hoyString.substring(0,1).toUpperCase() +
-      hoyString.slice(1); %>
+    <% for( let i=0; i < Object.keys(horarios).length; i++ ) {
+      let hoy = new Date();
+      hoy.setHours(hoy.getHours() + diferimiento);
+      hoy.setDate(hoy.getDate() + i);
+      let hoyString = hoy.toLocaleString('es-AR', { dateStyle: 'full' });
+      hoyString = hoyString.substring(0,1).toUpperCase() + hoyString.slice(1); %>
     <div class="card">
       <div class=" card-header">
         <span class="titulo-item">

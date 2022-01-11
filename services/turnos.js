@@ -21,9 +21,9 @@ function diaANumero(diaString) {
   }
 }
 
-module.exports.getTurnosFuturos = async function (seccion) {
+module.exports.getTurnosFuturos = async function (seccion, diferimiento) {
+  //diferimiento es la configuración horaria (-3 para argentina)
   let diasLimite = 2;
-  let diferimiento = -3; //Configuración de la hora de argentina
   let horas = await Horarios.find({ seccion: seccion }).sort('dia').sort('desdeHoras').sort('desdeMinutos');
   let objeto = {
     0: [],

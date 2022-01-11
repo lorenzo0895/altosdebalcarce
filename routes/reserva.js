@@ -7,9 +7,16 @@ const Reservas = require('../models/Reservas');
 
 router.get('/', isActive, async (req, res) => {
   var seccion = req.query.sec;
-  let horarios = await turnos.getTurnosFuturos(seccion);
+  let diferimiento = -3; //Diferimiento de la zona horaria de argentina con UTC
+  let horarios = await turnos.getTurnosFuturos(seccion, diferimiento);
   let user = await User.findOne({dni : req.session.dni});
-  res.render('reserva', {admin: req.session.admin, horarios: horarios, user: user, seccion: seccion });
+  res.render('reserva', {
+    admin: req.session.admin, 
+    horarios: horarios, 
+    user: user,
+    seccion: seccion,
+    diferimiento: diferimiento
+  });
 });
 
 router.post('/', isActive, async (req, res) => {
