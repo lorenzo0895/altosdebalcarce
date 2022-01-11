@@ -69,7 +69,6 @@
     <% for( let i=0; i < Object.keys(horarios).length; i++ ) { 
       let hoy = new Date();
       hoy.setDate(hoy.getDate() + i);
-      hoy.setHours(0,0,0,0);
       hoyString = hoy.toLocaleString('es-AR', { dateStyle: 'full' });
       hoyString = hoyString.substring(0,1).toUpperCase() + hoyString.slice(1);
       %>
