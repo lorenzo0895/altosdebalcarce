@@ -47,9 +47,8 @@ module.exports.getTurnosFuturos = async function (seccion) {
     now.setHours(now.getHours() + diferimiento);
     now.setDate(now.getDate() + i);
     let dia = diaANumero(now.toLocaleString('es-AR', { weekday: 'long' }));
-    let horas = Number(now.toLocaleString('es-AR', {hour: 'numeric'}));
-    let minutos = Number(now.toLocaleString('es-AR', {minute: 'numeric'}));
-    console.log(now.toLocaleString('es-AR', { weekday: 'long' }));
+    let horas = Number(now.toLocaleString('es-AR', { hour: 'numeric' }));
+    let minutos = Number(now.toLocaleString('es-AR', { minute: 'numeric' }));
     objeto[dia].forEach(el => {
       if (i === 0) {
         if (el.hastaHoras > horas) {

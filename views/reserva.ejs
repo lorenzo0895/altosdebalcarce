@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/general.css">
   <link rel="stylesheet" href="/css/reserva.css">
   <link rel="stylesheet" href="/css/pop-up.css">
@@ -22,8 +21,7 @@
       <div class="container-fluid">
         <a id="titulo-nav" class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo" id="logo">Altos de
           Balcarce</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -32,16 +30,16 @@
               <a class="nav-link" aria-current="page" href="/mis-turnos">Mis turnos</a>
             </li>
             <% if (admin) { %>
-              <li class="nav-item">
-                <a class="nav-link" href="/admin">Administrador</a>
-              </li>
-              <% } %>
-                <li class="nav-item">
-                  <a class="nav-link" href="/perfil">Perfil</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/logout">Cerrar sesión</a>
-                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Administrador</a>
+            </li>
+            <% } %>
+            <li class="nav-item">
+              <a class="nav-link" href="/perfil">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Cerrar sesión</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -66,53 +64,62 @@
   <section class="contenido">
     <div class="alert alert-warning" role="alert" id="alert" style="display: none;"></div>
     <div class="alert alert-success" role="alert" id="msj" style="display: none;"></div>
-    <% for( let i=0; i < Object.keys(horarios).length; i++ ) { 
-      let hoy = new Date();
-      hoy.setDate(hoy.getDate() + i);
-      hoyString = hoy.toLocaleString('es-AR', { dateStyle: 'full' });
-      hoyString = hoyString.substring(0,1).toUpperCase() + hoyString.slice(1);
-      %>
-      <div class="card"">
-        <div class=" card-header">
+    <% for( let i=0; i < Object.keys(horarios).length; i++ ) { let hoy=new Date(); hoy.setDate(hoy.getDate() + i);
+      hoyString=hoy.toLocaleString('es-AR', { dateStyle: 'full' }); hoyString=hoyString.substring(0,1).toUpperCase() +
+      hoyString.slice(1); %>
+    <div class="card">
+      <div class=" card-header">
         <span class="titulo-item">
           <%= hoyString %>
         </span>
       </div>
       <ul class="list-group list-group-flush">
 
+        <% if (horarios[0].length===0) {%>
+        <li class="list-group-item items-separados">
+          Ya no hay más turnos para reservar el día de hoy.
+        </li>
+        <% } %>
+
         <% horarios[i].forEach(element => {
-          let random=Math.random();
-          let desdeHoras=element.desdeHoras < 10 ? ('0' + element.desdeHoras) : element.desdeHoras; let
-            desdeMinutos=element.desdeMinutos < 10 ? ('0' + element.desdeMinutos) : element.desdeMinutos; let
-            desde=desdeHoras + ':' + desdeMinutos; let hastaHoras=element.hastaHoras < 10 ? ('0' + element.hastaHoras) :
-            element.hastaHoras; let hastaMinutos=element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) :
-            element.hastaMinutos; let hasta=hastaHoras + ':' + hastaMinutos; 
-            let turno = new Date() %>
-            <form action="/reserva" method="POST" id="<%= random %>" onclick="abrir(<%= random %>)">
-              <li class="list-group-item items-separados"><span><%= desde %> a <%= hasta %></span><span>12 disponibles</span></li>
-              <input type="text" name="dia" value="<%= 
+        let random = Math.random();
+        let desdeHoras = element.desdeHoras < 10 ? ('0' + element.desdeHoras) : element.desdeHoras;
+        let desdeMinutos = element.desdeMinutos < 10 ? ('0' + element.desdeMinutos) : element.desdeMinutos;
+        let desde = desdeHoras + ':' + desdeMinutos;
+        let hastaHoras = element.hastaHoras < 10 ? ('0' + element.hastaHoras) : element.hastaHoras;
+        let hastaMinutos = element.hastaMinutos < 10 ? ('0' + element.hastaMinutos) : element.hastaMinutos;
+        let hasta = hastaHoras + ':' + hastaMinutos;
+        let turno = new Date()
+      %>
+        <form action="/reserva" method="POST" id="<%= random %>" onclick="abrir(<%= random %>)">
+          <li class="list-group-item items-separados"><span>
+              <%= desde %> a <%= hasta %>
+            </span><span>12 disponibles</span></li>
+          <input type="text" name="dia" hidden value="<%= 
               hoy.toLocaleString('es-AR', {year: 'numeric'}) + '-' +
               hoy.toLocaleString('es-AR', {month: '2-digit'}) + '-' +
-              hoy.toLocaleString('es-AR', {day: '2-digit'})
-              %>" hidden>
-              <input type="text" name="turno" value="<%= element._id %>" hidden>
-              <input type="text" name="user" value="<%= user._id %>" hidden>
-              <input type="text" name="seccion" value="<%= seccion %>" hidden>
-            </form>
-            <% }) %>
+              hoy.toLocaleString('es-AR', {day: '2-digit'}) %>">
+          <input type="text" name="turno" value="<%= element._id %>" hidden>
+          <input type="text" name="user" value="<%= user._id %>" hidden>
+          <input type="text" name="seccion" value="<%= seccion %>" hidden>
+        </form>
+        <% }) %>
 
+        <% if (horarios[Object.keys(horarios).length - 1].length === 0) {%>
+        <li class="list-group-item items-separados">
+          Aún no hay turnos para reservar.
+        </li>
+        <% } %>
       </ul>
-      </div>
+    </div>
 
-      <% } %>
+    <% } %>
 
 
   </section>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-    <script src="/js/msjYAlerta.js"></script>
-    <script src="/js/confirmar.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="/js/msjYAlerta.js"></script>
+  <script src="/js/confirmar.js"></script>
 </body>
 
 </html>
