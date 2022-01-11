@@ -54,7 +54,7 @@
     <% for( let i = 0; i < Object.keys(horarios).length; i++ ) { %>
       <div class="card">
         <div class=" card-header items-separados">
-          <span class="titulo-item">Viernes, 8 de enero</span>
+          <span class="titulo-item"><%=horarios[Object.keys(horarios)[i]].dia%></span>
           <a onclick="desplegable('lista-1')"><img class="desplegable" src="/images/list.svg" alt=""></a>
         </div>
         <ul class="list-group list-group-flush oculta" id="lista-1">

@@ -1,7 +1,27 @@
 const Horarios = require('../models/Horarios');
 
+function diaANumero(diaString) {
+  switch (diaString) {
+    case 'lunes':
+      return 0;
+    case 'martes':
+      return 1;
+    case 'miércoles':
+      return 2;
+    case 'jueves':
+      return 3;
+    case 'viernes':
+      return 4;
+    case 'sábado':
+      return 5;
+    case 'domingo':
+      return 6;
+    default:
+      return 'Error';
+  }
+}
+
 module.exports.getTurnosFuturos = async function (seccion) {
-  let now = new Date();
   let diasLimite = 2;
   let horas = await Horarios.find({ seccion: seccion }).sort('dia').sort('desdeHoras').sort('desdeMinutos');
   let objeto = {
@@ -21,42 +41,32 @@ module.exports.getTurnosFuturos = async function (seccion) {
     objetoHorarios[i] = [];
   }
 
-  //----- GUARDAMOS OBJETOS EN objetoHorarios[i]. i VA A IR DESDE CERO HASTA diasLimite -----
   for (let i = 0; i <= diasLimite; i++) {
-    let diaComparable = new Date();
-    let brechaHoraria = diaComparable.getHours() - diaComparable.getUTCHours();
-    diaComparable.setHours(diaComparable.getHours() + brechaHoraria);
-    diaComparable.setDate(diaComparable.getDate() + i);
-    diaComparableNumero = diaComparable.getDay() - 1;
+    let now = new Date();
+    now.setDate(now.getDate() + i);
+    let dia = diaANumero(now.toLocaleString('es-AR', { weekday: 'long' }));
+    let horas = Number(now.toLocaleString('es-AR', {hour: 'numeric'}));
+    let minutos = Number(now.toLocaleString('es-AR', {minute: 'numeric'}));
 
-    objeto[diaComparableNumero].forEach(el => {
-      let horasLimiteHasta = el.hastaHoras;
-      let minutosLimiteHasta = el.hastaMinutos;
-      let horasLimiteDesde = el.desdeHoras;
-      let minutosLimiteDesde = el.desdeMinutos;
-      let hastaComparable = new Date();
-      hastaComparable.setHours(brechaHoraria + horasLimiteHasta, minutosLimiteHasta, 0);
-      let desdeComparable = new Date();
-      desdeComparable.setHours(brechaHoraria + horasLimiteDesde, minutosLimiteDesde, 0);
-      desdeComparable.setDate(desdeComparable.getUTCDate() + diasLimite);
-
-      //FILTRAMOS HORARIOS QUE YA PASARON EL DÍA DE HOY
+    objeto[dia].forEach(el => {
       if (i === 0) {
-        if (hastaComparable >= diaComparable) {
+        if (el.hastaHoras > horas) {
+          objetoHorarios[i].push(el);
+        } else if (el.hastaHoras === horas && el.hastaMinutos >= minutos) {
           objetoHorarios[i].push(el);
         }
       } else if (i === diasLimite) {
-        //FILTRAMOS HORARIOS DEL ÚLTIMO DÍA QUE EXCEDEN EL LÍMITE
-        if (desdeComparable <= diaComparable) {
+        if (el.desdeHoras < horas) {
+          objetoHorarios[i].push(el);
+        } else if (el.desdeHoras === horas && el.desdeMinutos <= minutos) {
           objetoHorarios[i].push(el);
         }
       } else {
         objetoHorarios[i].push(el);
       }
+
     });
   }
-
   return objetoHorarios;
-
 
 }

@@ -4,7 +4,7 @@ const { isAdmin } = require('../services/roles');
 const User = require('../models/User');
 const Horarios = require('../models/Horarios');
 const bcrypt = require('bcryptjs');
-const turnos = require('../services/turnos');
+const Reservas = require('../models/Reservas');
 
 router.get('/', isAdmin, (req, res) => {
   res.render('admin-home', { admin: req.session.admin });
@@ -35,8 +35,14 @@ router.get('/user/:dni', isAdmin, async (req, res) => {
 });
 
 router.get('/turnos', isAdmin, async (req, res) => {
-  let horarios = await turnos.getTurnosFuturos('musculacion');
-  res.render('admin-turnos-listar', { admin: req.session.admin, horarios: horarios });
+  let hoy = new Date();
+  hoy.setHours(hoy.getHours() - hoy.getUTCHours(),0,0,0)
+  console.log(hoy);
+  let horMusc = await Reservas.find({
+    seccion: 'musculacion',
+    dia: {$gte: [ "$dia", hoy ]}
+  });
+  res.render('admin-turnos-listar', { admin: req.session.admin, horarios: horMusc });
 });
 
 router.post('/new-user', isAdmin, async (req, res) => {

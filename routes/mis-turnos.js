@@ -14,7 +14,6 @@ router.get('/', isActive, async (req, res) => {
 
 router.post('/borrar-turno', isActive, async (req, res) => {
   const {id} = req.body;
-  console.log(id);
   await Reservas.findOneAndDelete({id: id});
   res.redirect('/mis-turnos');
 });
