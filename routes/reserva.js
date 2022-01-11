@@ -4,18 +4,20 @@ const { isActive } = require('../services/roles');
 const turnos = require('../services/turnos');
 const User = require('../models/User');
 const Reservas = require('../models/Reservas');
+const Configs = require('../models/Configs');
 
 router.get('/', isActive, async (req, res) => {
   var seccion = req.query.sec;
-  let diferimiento = -3; //Diferimiento de la zona horaria de argentina con UTC
-  let horarios = await turnos.getTurnosFuturos(seccion, diferimiento);
+  let configs = await Configs.find({}).exec();
+  let diferenciaHoraria = configs[0].diferenciaHoraria;
+  let horarios = await turnos.getTurnosFuturos(seccion, diferenciaHoraria);
   let user = await User.findOne({ dni: req.session.dni });
   res.render('reserva', {
     admin: req.session.admin,
     horarios: horarios,
     user: user,
     seccion: seccion,
-    diferimiento: diferimiento,
+    diferimiento: diferenciaHoraria,
   });
 });
 
