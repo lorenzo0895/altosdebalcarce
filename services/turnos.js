@@ -23,6 +23,7 @@ function diaANumero(diaString) {
 
 module.exports.getTurnosFuturos = async function (seccion) {
   let diasLimite = 2;
+  let diferimiento = -3; //Configuración de la hora de argentina
   let horas = await Horarios.find({ seccion: seccion }).sort('dia').sort('desdeHoras').sort('desdeMinutos');
   let objeto = {
     0: [],
@@ -43,6 +44,7 @@ module.exports.getTurnosFuturos = async function (seccion) {
 
   for (let i = 0; i <= diasLimite; i++) {
     let now = new Date();
+    now.setHours(now.getHours() + diferimiento);
     now.setDate(now.getDate() + i);
     let dia = diaANumero(now.toLocaleString('es-AR', { weekday: 'long' }));
     let horas = Number(now.toLocaleString('es-AR', {hour: 'numeric'}));
