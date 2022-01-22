@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 //----- Base de Datos -----
-const uriDB = 'mongodb+srv://root:root@cluster0.ayfz2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const uriDB = 'mongodb+srv://<user>:<password>@cluster0........';
 mongoose.connect(uriDB)
   .then(console.log('Conectado a BD'))
   .catch('Error al conectarse a la BD');
@@ -21,7 +21,7 @@ const store = new connectMongoDB({
 
 //----- Sesión -----
 app.use(session({
-  secret: 'secret-918273',
+  secret: 'secreto123456',
   resave: true,
   saveUninitialized: true,
   store: store
